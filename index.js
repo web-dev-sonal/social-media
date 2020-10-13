@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 1000;
 
+const routes = require('./routes/index');   //import routes 
+app.use('/',routes);             //middleware function
 
 
 
