@@ -4,6 +4,8 @@ const port = 1000;
 
 app.use(express.static('./assets'));   //middleware function for using statis files
 
+const db = require('./config/mongoose');
+
 //before routing add template library
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts); 
