@@ -1,0 +1,17 @@
+<html>
+    <head><title>
+        <%= title %>
+    </title></head>
+    <!-- path will be according to assets folder reference in href -->
+    <link rel="stylesheet" href="/css/layout.css">   
+    <!-- add style link here for different web pages-->
+    <%- style %>
+    <body>
+        <%- include('_header'); -%>
+        
+        <%- body %>
+
+        <%- include('_footer'); -%>
+        <%- script %>
+    </body>
+</html>

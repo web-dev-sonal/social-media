@@ -2,6 +2,16 @@ const express = require('express');
 const app = express();
 const port = 1000;
 
+app.use(express.static('./assets'));   //middleware function for using statis files
+
+//before routing add template library
+const expressLayouts = require('express-ejs-layouts');
+app.use(expressLayouts); 
+
+//extract styles and scripts from subpages to layouts
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
+
 const routes = require('./routes');   //import routes 
 app.use('/',routes);             //middleware function
 
