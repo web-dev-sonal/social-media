@@ -18,5 +18,5 @@ const userSchema = new mongoose.Schema({
     timestamps: true  ///for capturing date and time when account created
 });
 
-const user = mongoose.model('user',userSchema);
-module.exports = user;
+const Users = mongoose.model('Users',userSchema);
+module.exports = Users;

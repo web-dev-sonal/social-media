@@ -50,7 +50,26 @@ module.exports.create_id = function(req,res){
 }
 
 //get the sign in data
-module.exports.create_session = function(req,res){
-    //do later
+module.exports.createSession = function(req,res){
+    console.log(req.body);
+    Users.findOne({email: req.body.email},function(err,user){   //call back function which find the user object if match
+        if(err){console.log('error in signing in'); return};
+        
+        if(user){
+            if(user.password != req.body.password){
+                console.log('user not found');
+                return res.redirect('back');   //return to that same page
+            }
+            else{
+                console.log('user found');
+                res.cookie('user_id',user.id);     //create a cookie to send to browser for using in further request
+                return res.redirect('/users/profile');  //after matching connect to profile page
+            }
+        }
+        else{
+            console.log('user  not    found');
+            return res.redirect('back');
+        }
+    });
 }
 
