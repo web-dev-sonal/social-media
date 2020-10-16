@@ -2,9 +2,32 @@ const Users = require('../models/users');  //import the database file in which w
 
 module.exports.profile = function(req,res){
     // return res.end('<h1> user profile </h1>');
-    return res.render('users',{    //'users' it is filename in views section to which control go..
-        title: "users"
-    });
+   // return res.render('users',{    //'users' it is filename in views section to which control go..
+   //     title: "users"
+  //  });
+
+    //code ..any content is accessible if anf only if user is signed in
+    if(req.cookies.user_id){
+        Users.findById(req.cookies.user_id,function(err,user){
+            if(err){
+                console.log('error in access webpage');
+                return;
+            }
+            if(user){
+                return res.render('users',{  //users is ejs file in views to which it connect to
+                    title: "profile-page",
+                    user: user
+                })
+            }
+            else{
+                return res.redirect('/users/sign-in');
+            }
+        })
+    }
+    else{
+        return res.redirect('/users/sign-in');
+        
+    }
 }
 
 
