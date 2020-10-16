@@ -1,14 +1,18 @@
-const express = require('express');
+const express = require('express');   //import express module after installation
+const cookieParser = require('cookie-parser');  //import module for cookies after installation
 const app = express();
-const port = 1000;
+const port = 9000;
 
 app.use(express.static('./assets'));   //middleware function for using statis files
+
+ app.use(express.urlencoded());   //for parsing data .. a middleware function
+app.use(cookieParser());   //middleware for every request to access cookies
 
 const db = require('./config/mongoose');
 
 //before routing add template library
 const expressLayouts = require('express-ejs-layouts');
-app.use(expressLayouts); 
+app.use(expressLayouts);          
 
 //extract styles and scripts from subpages to layouts
 app.set('layout extractStyles',true);
