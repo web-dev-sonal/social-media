@@ -1,7 +1,7 @@
 const passport = require('passport');  //import passport libarary
 const user = require('../models/users');
 
-const LocalStrategy = require('passport-local').strategy;  //import the strategy that we r using ..also LocalStrategy name is suggested by passport 
+const LocalStrategy = require('passport-local').Strategy;  //import the strategy that we r using ..also LocalStrategy name is suggested by passport 
 
 const User = require('../models/users');
 

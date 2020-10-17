@@ -51,6 +51,6 @@ module.exports.create_id = function(req,res){
 
 //get the sign in data
 module.exports.create_session = function(req,res){
-    //do later
+    return res.redirect('/');
 }
 

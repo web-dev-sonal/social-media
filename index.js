@@ -10,6 +10,13 @@ app.use(cookieParser());   //middleware for every request to access cookies
 
 const db = require('./config/mongoose');
 
+//import express-session 
+const session = require('express-session');
+
+//import passport
+const passport = require('passport');
+const passportLocal = require('./config/passport_local_strategy');
+
 //before routing add template library
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);          
@@ -18,12 +25,28 @@ app.use(expressLayouts);
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
-const routes = require('./routes');   //import routes 
-app.use('/',routes);             //middleware function
+const routes = require('./routes/index');   //import routes 
+
 
 //set up view engine
 app.set('view engine','ejs');
 app.set('views','./views');
+
+//middlware for session
+app.use(session({
+    name: "codial",
+    secret: "blahsomething",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000*60*100)
+    }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/',routes);             //middleware function  ..it should come after passport ,...at last
 
 app.listen(port,function(err){
     if(err){
