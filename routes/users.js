@@ -7,7 +7,7 @@ const router = express.Router();
 
  const control = require('../controller/user_controller');
 
-router.get('/profile',control.profile);
+router.get('/profile',passport.checkAuthentication,control.profile);  //middleware inserted to check whether user is signed in or not?
 router.get('/sign-in',control.sign_in);
 router.get('/sign-up',control.sign_up);
 router.post('/create_id',control.create_id);
@@ -18,5 +18,6 @@ router.post('/create_session',passport.authenticate(
     {failureRedirect: '/users/sign-in'}
 ),control.create_session);
 
+router.get('/sign-out',control.destroy_session);
 console.log('route work successfully');
 module.exports = router;

@@ -10,6 +10,11 @@ module.exports.profile = function(req,res){
 
 //rendering to sogn in page
 module.exports.sign_in = function(req,res){
+    //check if user has already signed in
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('sign_in',{
         title: "sign-in"
     });
@@ -17,6 +22,11 @@ module.exports.sign_in = function(req,res){
 
 //rendering to sign up page
 module.exports.sign_up = function(req,res){
+    //check if user has already signed in
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('sign_up',{
         title: "sign-up"
     });
@@ -54,3 +64,9 @@ module.exports.create_session = function(req,res){
     return res.redirect('/');
 }
 
+//get the sign-out data
+module.exports.destroy_session = function(req,res){
+    req.logout();
+
+    return res.redirect('/');
+}
