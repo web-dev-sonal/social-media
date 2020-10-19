@@ -2,8 +2,18 @@ const express = require('express');   //import express module after installation
 const cookieParser = require('cookie-parser');  //import module for cookies after installation
 const app = express();
 const port = 9000;
+const sassMiddleware = require('node-sass-middleware');
+
 
 app.use(express.static('./assets'));   //middleware function for using statis files
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
 
  app.use(express.urlencoded());   //for parsing data .. a middleware function
 app.use(cookieParser());   //middleware for every request to access cookies
