@@ -18,7 +18,7 @@ module.exports.home = function(req,res){
         });
     })*/
 
-    posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user document which have full info about user
+    posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user document(in posts that we are sending to views) which have full info about user
         return res.render('home',{
             title: "home",
             posts: post

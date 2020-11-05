@@ -10,7 +10,8 @@
     </form>
 
     <div id="post-list">
-        <% for(post of posts){ %>
+        <!-- note how we used for loop -->
+        <% for(post of posts){ %>   
             <li>
                 <p><%=post.user.name%></p>
                 <p><%=post.content%></p>
