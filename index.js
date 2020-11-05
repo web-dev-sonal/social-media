@@ -48,10 +48,10 @@ app.set('views','./views');
 //middlware for session
 //mongostore is used to store the session cookie
 app.use(session({
-    name: "codial",
-    secret: "blahsomething",
-    saveUninitialized: false,
-    resave: false,
+    name: "codial",  //name of my cookie
+    secret: "blahsomething", //whenever encrypting occur, we need a code to encode and decode it and it should be secret
+    saveUninitialized: false, //it mean when any user us not logged in then data wil not be stred in session cookie
+    resave: false,  //if any user is logged in then any session data need not to ne resaved 
     cookie: {
         maxAge: (1000*60*100)
     },
