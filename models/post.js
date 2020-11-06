@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,    //contsin id of User 
-        ref: 'User'                              //referenced to User model
+        ref: 'User'  //User is exported in users.js model                              //referenced to User model
     }
 },{
     timestamps: true
