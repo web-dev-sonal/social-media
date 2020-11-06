@@ -13,6 +13,7 @@ router.get('/',passport.checkAuthentication,controller.home);
 // router.get('/users',require('./users'));    //here we are using a middleware function on /users request so dont't write get method
 router.use('/users',require('./users'));    //use method since it redirect to another page and it's a middleware function
 router.use('/post',require('./posts'));
+router.use('/comment',require('./comment'));
 
 console.log('route work successfully');
 module.exports = router;

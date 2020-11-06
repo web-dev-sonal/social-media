@@ -16,6 +16,14 @@
                 <p><%=post.user.name%></p>
                 <p><%=post.content%></p>
             </li>
+            <!-- creating a form for comment of each post -->
+            <form action="/comment/add" id="comment-form" method="POST">
+                
+                <textarea name="content" id="" cols="15" rows="2" placeholder="comment here..."></textarea><br>
+                <!-- through this hidden type we send data like here we r sending post id on which comment are added -->
+                <input type="hidden" name="post_id" value="<%=post._id%>">
+                <input type="submit" value="add">
+            </form>
         <%}%>
     </div>
 </section>
