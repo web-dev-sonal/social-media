@@ -8,7 +8,13 @@ const postSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,    //contsin id of User 
         ref: 'User'  //User is exported in users.js model                              //referenced to User model
-    }
+    },
+    comments: [ //array which store all comment id of all comments of s post
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 },{
     timestamps: true
 });
