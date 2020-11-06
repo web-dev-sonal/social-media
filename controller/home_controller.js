@@ -18,10 +18,28 @@ module.exports.home = function(req,res){
         });
     })*/
 
-    posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user document(in posts that we are sending to views) which have full info about user
+ /*   posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user document(in posts that we are sending to views) which have full info about user
+        return res.render('home',{
+            title: "home",
+            posts: post
+        });
+    })*/
+
+    //now we have to populate comment also and populate user who commented on any post so comment above code
+    posts.find({}).
+    populate('user'). //here user is who belong to this post
+    populate(
+        {
+            path: 'comments',
+            populate: {
+                path: 'user' //here user are those who have commented on any post
+            }
+        }
+    ).exec(function(err,post){
         return res.render('home',{
             title: "home",
             posts: post
         });
     })
+
 }

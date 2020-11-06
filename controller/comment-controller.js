@@ -12,7 +12,7 @@ module.exports.add_comment = function(req,res){
 
         if(Post){
             comment.create({
-                content: req.body.content,  //here also one thing we should check if content is blank then return
+                content: req.body.content,  //here also one thing we should check if content is blank ..for this we set requires in input of comment
                 user: req.user._id,
                 post: req.body.post_id   //challenjing and important point..how to get id of post on which user comment
             },function(err,comment){
