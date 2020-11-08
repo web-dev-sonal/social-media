@@ -11,6 +11,7 @@ router.get('/profile/:id',passport.checkAuthentication,control.profile);  //midd
 router.get('/sign-in',control.sign_in);
 router.get('/sign-up',control.sign_up);
 router.post('/create_id',control.create_id);
+router.post('/update/:id',control.update);
 
 //use middleware for using passport
 router.post('/create_session',passport.authenticate(

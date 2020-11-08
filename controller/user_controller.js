@@ -1,3 +1,4 @@
+const User = require('../models/users');
 const Users = require('../models/users');  //import the database file in which we stored our users
 
 module.exports.profile = function(req,res){
@@ -6,12 +7,34 @@ module.exports.profile = function(req,res){
     //     title: "users"
     // });
 
-    Users.findById(req.params.id,function(err,user){
+    Users.findById(req.params.id,function(err,User){
         return res.render('user_profile',{
             title: "user",
-            user: user
+            profile_user: User
         });
-    })
+    });
+}
+
+module.exports.update = function(req,res){
+    if(req.params.id!=req.user.id){  //don't write here locals .user.id instead of req.user.id...that will not work
+        return res.redirect('back');
+    }
+
+   /* Users.findByIdAndUpdate(req.params.id,req.body,function(err,user){ //after updation or creation , a call back function will contain that new user
+        if(err){
+            console.log('error in updating user profile');
+        }
+        return res.redirect('back');
+    });*/
+    Users.findByIdAndUpdate(req.params.id,{
+        name:req.body.name,
+        email:req.body.email
+    },function(err,user){ //after updation or creation , a call back function will contain that new user
+        if(err){
+            console.log('error in updating user profile');
+        }
+        return res.redirect('back');
+    });
 }
 
 

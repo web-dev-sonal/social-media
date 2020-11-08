@@ -1,5 +1,17 @@
 <h1>user</h1>
 
 
-<p><%= user.email %></p>
-<p><%= user.name %></p>
+<!-- user.id will work but user._id will not work here -->
+<!-- we put condition here for update -->
+<%if(locals.user.id==profile_user._id){%>
+    <form action="/users/update/<%=user._id%>" method="POST">
+        <input type="text" name="name" placeholder="enter your name" value="<%=user.name%>" required>
+        <input type="email" name="email" placeholder="enter your email" value="<%=user.email%>" required>
+        <input type="submit" value="update">
+    </form>
+<%}else{%>
+    <p><%= profile_user.email %></p>
+    <p><%= profile_user.name %></p>
+<%}%>
+
+
