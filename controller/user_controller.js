@@ -2,9 +2,16 @@ const Users = require('../models/users');  //import the database file in which w
 
 module.exports.profile = function(req,res){
     // return res.end('<h1> user profile </h1>');
-    return res.render('users',{    //'users' it is filename in views section to which control go..
-        title: "users"
-    });
+    // return res.render('users',{    //'users' it is filename in views section to which control go..
+    //     title: "users"
+    // });
+
+    Users.findById(req.params.id,function(err,user){
+        return res.render('user_profile',{
+            title: "user",
+            user: user
+        });
+    })
 }
 
 

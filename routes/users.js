@@ -7,7 +7,7 @@ const router = express.Router();
 
  const control = require('../controller/user_controller');
 
-router.get('/profile',passport.checkAuthentication,control.profile);  //middleware inserted to check whether user is signed in or not?
+router.get('/profile/:id',passport.checkAuthentication,control.profile);  //middleware inserted to check whether user is signed in or not?
 router.get('/sign-in',control.sign_in);
 router.get('/sign-up',control.sign_up);
 router.post('/create_id',control.create_id);

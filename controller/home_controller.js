@@ -1,4 +1,5 @@
 const posts = require('../models/post');
+const User = require('../models/users');
 
 module.exports.home = function(req,res){
     // return res.end('<h1> home page </h1>');
@@ -18,7 +19,7 @@ module.exports.home = function(req,res){
         });
     })*/
 
- /*   posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user document(in posts that we are sending to views) which have full info about user
+ /*   posts.find({}).populate('user').exec(function(err,post){  //after populating now user field of post became user object(in posts that we are sending to views) which have full info about user
         return res.render('home',{
             title: "home",
             posts: post
@@ -36,10 +37,13 @@ module.exports.home = function(req,res){
             }
         }
     ).exec(function(err,post){
-        return res.render('home',{
-            title: "home",
-            posts: post
+        User.find({},function(err,users){
+            return res.render('home',{
+                title: "home",
+                posts: post,
+                all_user: users
+            });
         });
-    })
+    });
 
 }
