@@ -20,6 +20,7 @@ module.exports.add_comment = function(req,res){
                     console.log('error in commenting');
                     return;
                 }
+               // console.log(comment); just for checking , comment is an object that is created 
 
                 //also update post model
                 Post.comments.push(comment);  //automatically push comment id in comment array of Post model and this commment is object that we get back after creating 
@@ -44,4 +45,25 @@ module.exports.add_comment = function(req,res){
     // })
 }
 
-//also we have to update post model in which in comment field i have to fill comment id 
+module.exports.delete = function(req,res){
+    comment.findById(req.params.id,function(err,Comment){
+        //we have to delete comment in comment module as well as in comment array of post module
+
+        //check security
+        if(Comment.user != req.user.id){
+            return res.redirect('back');
+        }
+
+        let post_id = Comment.post;
+        comment.remove();
+        //now in Post ,delete comment id from comment array.....it's a challenjing
+        post.findByIdAndUpdate(post_id,{$pull: {comments: req.params.id}},function(err,Post){
+            if(err){
+                console.log('error in update');
+            }
+            return res.redirect('back');
+        });
+
+        
+    })
+}

@@ -16,6 +16,11 @@
                 <p><%=post.user.name%></p>
                 <p><%=post.content%></p>
             </li>
+            <!-- we r providing delete option on user's own post and also we r passing post id in backend for deletion -->
+            <%if(locals.user.id==post.user.id){%> 
+                <!-- for comparing id we can write .id instead of ._id -->
+                <a href="/post/delete/<%=post._id%>">delete_post</a>
+            <%}%>
             <!-- creating a form for comment of each post -->
             <div id="comment-forms">
                 <form action="/comment/add" id="comment-form" method="POST">
@@ -35,7 +40,10 @@
                             <%=comment.content%>
                             <li> <%=comment.user.name%></li>
                         </li>
-                    
+                        <%if(locals.user.id==comment.user.id){%> 
+                            <!-- for comparing id we can write .id instead of ._id -->
+                            <a href="/comment/delete/<%=comment._id%>">delete_comment</a>
+                        <%}%>
                 <%}%>
                </ul>  
             </div>
