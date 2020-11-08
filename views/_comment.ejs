@@ -1,0 +1,8 @@
+<li>
+    <%=comment.content%>
+    <li> <%=comment.user.name%></li>
+</li>
+<%if(locals.user.id==comment.user.id){%> 
+    <!-- for comparing id we can write .id instead of ._id -->
+    <a href="/comment/delete/<%=comment._id%>">delete_comment</a>
+<%}%>

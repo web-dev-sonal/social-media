@@ -12,41 +12,8 @@
     <div id="post-list">
         <!-- note how we used for loop -->
         <% for(post of posts){ %>   
-            <li>
-                <p><%=post.user.name%></p>
-                <p><%=post.content%></p>
-            </li>
-            <!-- we r providing delete option on user's own post and also we r passing post id in backend for deletion -->
-            <%if(locals.user.id==post.user.id){%> 
-                <!-- for comparing id we can write .id instead of ._id -->
-                <a href="/post/delete/<%=post._id%>">delete_post</a>
-            <%}%>
-            <!-- creating a form for comment of each post -->
-            <div id="comment-forms">
-                <form action="/comment/add" id="comment-form" method="POST">
-                
-                    <textarea name="content" id="" cols="15" rows="2" placeholder="comment here..." required></textarea><br>
-                    <!-- through this hidden type we send data like here we r sending post id on which comment are added -->
-                    <input type="hidden" name="post_id" value="<%=post._id%>">
-                    <input type="submit" value="add">
-                </form>
-            </div>
-            <!-- showing all comments of a post -->
-            <div id="comment-list">
-                <ul>
-                <%for(comment of post.comments){%>
-                    
-                        <li>
-                            <%=comment.content%>
-                            <li> <%=comment.user.name%></li>
-                        </li>
-                        <%if(locals.user.id==comment.user.id){%> 
-                            <!-- for comparing id we can write .id instead of ._id -->
-                            <a href="/comment/delete/<%=comment._id%>">delete_comment</a>
-                        <%}%>
-                <%}%>
-               </ul>  
-            </div>
+            <!-- for each post we separate the code in another file -->
+            <%- include('_post') -%>
         <%}%>
     </div>
 </section>
