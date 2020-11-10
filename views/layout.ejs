@@ -1,17 +1,56 @@
 <html>
-    <head><title>
-        <%= title %>
-    </title></head>
-    <!-- path will be according to assets folder reference in href -->
-    <link rel="stylesheet" href="/css/layout.css">   
-    <!-- add style link here for different web pages-->
-    <%- style %>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <!-- below two link are from cdn , library of noty , and noty is a npm package -->
+        <!-- it is copied from link.. https://cdnjs.com/libraries/noty -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+        <!-- path will be according to assets folder reference in href -->
+        <link rel="stylesheet" href="/css/layout.css">   
+        <!-- add style link here for different web pages-->
+        <%- style %>
+    </head>
+    
     <body>
         <%- include('_header'); -%>
-        
+        <!-- <%if(flash.success && flash.success.length > 0){%>
+            <h5><%=flash.success%></h5>
+        <%}%> -->
+        <!-- <%if(flash.error && flash.error.length > 0){%>
+            <h5><%=flash.error%></h5>
+        <%}%> -->
+
         <%- body %>
 
         <%- include('_footer'); -%>
         <%- script %>
+
+        <script>
+            <%if(flash.success && flash.success.length > 0){%>
+                // all these are from noty js website ..see there  https://ned.im/noty/#/
+                new Noty({
+                    theme: 'relax',  
+                    text: "<%=flash.success%>",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                }).show();
+            <%}%>
+
+            <%if(flash.error && flash.error.length > 0){%>
+                // all these are from noty js website ..see there  https://ned.im/noty/#/
+                new Noty({
+                    theme: 'relax',  
+                    text: "<%=flash.error%>",
+                    type: 'error',
+                    layout: 'topRight',
+                    timeout: 1500
+                }).show();
+            <%}%>
+
+        </script>
     </body>
 </html>

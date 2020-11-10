@@ -12,6 +12,7 @@ module.exports.add = function(req,res){
             console.log('error in posting');
             return;
         }
+        req.flash('success','new post added!');
         return res.redirect('back');
     })
 }
@@ -45,6 +46,7 @@ module.exports.delete = async function(req,res){
                     console.log('error in deleting comment');
                 }
                 //return res.redirect('back');
+                req.flash('error','post deleted!');
                 return res.redirect('/');
             });
         }

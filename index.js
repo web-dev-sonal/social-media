@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');  //import module for cookies afte
 const app = express();
 const port = 9000;
 const sassMiddleware = require('node-sass-middleware');
+const flash=require('connect-flash');//import this for flash message after npm install connect-flash download
+const customMware = require('./config/middleware');
 
 
 app.use(express.static('./assets'));   //middleware function for using statis files
@@ -72,6 +74,10 @@ app.use(passport.session());
 
 //middleware for setting user information to res.locals.user
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());  //this middleware is used after session cookie set-up as flash message use session cookie for storing message and it 
+//delete after first refresh of page
+app.use(customMware.setFlash);
 
 app.use('/',routes);             //middleware function  ..it should come after passport ,...at last
 

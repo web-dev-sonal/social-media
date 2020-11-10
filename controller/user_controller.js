@@ -91,12 +91,13 @@ module.exports.create_id = function(req,res){
 
 //get the sign in data
 module.exports.create_session = function(req,res){
+    req.flash('success','logged in succesfully'); //setting key andmessage as value in flash , now for transferring to res object use own middleware
     return res.redirect('/');
 }
 
 //get the sign-out data
 module.exports.destroy_session = function(req,res){
     req.logout();
-
+    req.flash('success','you have logged out!');
     return res.redirect('/');
 }

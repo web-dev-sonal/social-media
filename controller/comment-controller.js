@@ -25,7 +25,8 @@ module.exports.add_comment = function(req,res){
                 //also update post model
                 Post.comments.push(comment);  //automatically push comment id in comment array of Post model and this commment is object that we get back after creating 
                 Post.save();  //after updating save 
-        
+                
+                req.flash('success','comment added!');
                 return res.redirect('back');
             })
         }
@@ -61,6 +62,7 @@ module.exports.delete = function(req,res){
             if(err){
                 console.log('error in update');
             }
+            req.flash('error','comment deleted!');
             return res.redirect('back');
         });
 

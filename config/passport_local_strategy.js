@@ -8,9 +8,11 @@ const User = require('../models/users');
 //authentication 
 
 passport.use(new LocalStrategy({
-        usernameField : 'email'
+        usernameField : 'email',
+        passReqToCallback: true  //this cause req object to be passed to call back function so that we can set anything like flash message to req object
     },
-    function(email,password,done){     //email and password that we filled in form and done is a inbuilt function
+    //so in this callback function req object will also come 
+    function(req,email,password,done){     //email and password that we filled in form and done is a inbuilt function
         //find user and establish identity
         User.findOne({email : email},function(err,user){   //here first email is from scema and second is thst we entered or passed in function above
             if(err){
@@ -19,7 +21,8 @@ passport.use(new LocalStrategy({
             }
 
             if(!user || user.password != password){
-                return console.log('invalid password or username');
+                //return console.log('invalid password or username');
+                req.flash('error','invalid username/password');
                 return done(null,false);   //null represent no error and false represent user not found
             }
 
