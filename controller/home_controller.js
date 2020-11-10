@@ -1,7 +1,7 @@
 const posts = require('../models/post');
 const User = require('../models/users');
 
-module.exports.home = function(req,res){
+module.exports.home = async function(req,res){
     // return res.end('<h1> home page </h1>');
     //redirect to view engine
 
@@ -27,6 +27,8 @@ module.exports.home = function(req,res){
     })*/
 
     //now we have to populate comment also and populate user who commented on any post so comment above code
+    // without using async ans await
+    /*
     posts.find({}).
     populate('user'). //here user is who belong to this post
     populate(
@@ -45,5 +47,29 @@ module.exports.home = function(req,res){
             });
         });
     });
-
+*/
+    // using asyncand await
+    try{
+        let post = await posts.find({}).
+        populate('user'). //here user is who belong to this post
+        populate(
+            {
+                path: 'comments',
+                populate: {
+                    path: 'user' //here user are those who have commented on any post
+                }
+            }
+        );
+        let users = await User.find({});
+        
+        return res.render('home',{
+            title: "home",
+            posts: post,
+            all_user: users
+        });
+    }
+    catch(err){
+        console.log('error',err);
+        return;
+    }
 }
