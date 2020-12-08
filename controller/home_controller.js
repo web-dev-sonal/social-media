@@ -51,6 +51,7 @@ module.exports.home = async function(req,res){
     // using asyncand await
     try{
         let post = await posts.find({}).
+        sort('-createdAt').  //so data is sorted according to time...first post will be of last added post
         populate('user'). //here user is who belong to this post
         populate(
             {

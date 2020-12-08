@@ -11,10 +11,13 @@
 
     <div id="post-list">
         <!-- note how we used for loop -->
-        <% for(post of posts){ %>   
-            <!-- for each post we separate the code in another file -->
-            <%- include('_post') -%>
-        <%}%>
+        <ul>
+            <% for(post of posts){ %>   
+                <!-- for each post we separate the code in another file -->
+                <%- include('_post') -%>
+            <%}%>
+        </ul>
+        
     </div>
 </section>
 
@@ -26,3 +29,4 @@
         <br>
     <%}%>
 </section>
+<script src="/js/home_post.js"></script>
