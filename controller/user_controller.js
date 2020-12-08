@@ -1,5 +1,7 @@
 const User = require('../models/users');
 const Users = require('../models/users');  //import the database file in which we stored our users
+const fs = require('fs');  //for accessing file like deletion ,reading etc
+const path = require('path');
 
 module.exports.profile = function(req,res){
     // return res.end('<h1> user profile </h1>');
@@ -15,7 +17,7 @@ module.exports.profile = function(req,res){
     });
 }
 
-module.exports.update = function(req,res){
+module.exports.update = async function(req,res){
     if(req.params.id!=req.user.id){  //don't write here locals .user.id instead of req.user.id...that will not work
         return res.redirect('back');
     }
@@ -26,6 +28,8 @@ module.exports.update = function(req,res){
         }
         return res.redirect('back');
     });*/
+
+    /*
     Users.findByIdAndUpdate(req.params.id,{
         name:req.body.name,
         email:req.body.email
@@ -34,7 +38,40 @@ module.exports.update = function(req,res){
             console.log('error in updating user profile');
         }
         return res.redirect('back');
-    });
+    });*/
+
+    try{
+        let user = await Users.findById(req.params.id);
+        //directly we can't access req.body bcz form contain multidata...so we have to use multer
+        //use static function
+        Users.uploadedAvatar(req,res,function(err){
+            if(err){
+                console.log('****multer error',err);
+            }
+
+            //now we can access req.body
+            user.name= req.body.name;
+            user.email= req.body.email;
+
+            if(req.file){
+
+                //delete previous profile
+                if(user.avatar){
+                    fs.unlinkSync(path.join(__dirname,'..',user.avatar)); //deleting previous file
+                }
+                //this is saving path of the uploaded file into avatar of the user
+                user.avatar= Users.avatarPath + '/' + req.file.filename;
+            }
+
+            user.save();
+            return res.redirect('back');
+        })
+    }
+    catch(err){
+        console.log('error',err);
+        return ;
+    }
+
 }
 
 

@@ -9,6 +9,9 @@ const customMware = require('./config/middleware');
 
 app.use(express.static('./assets'));   //middleware function for using statis files
 
+//make uploads path available to the browser
+app.use('/uploads',express.static(__dirname+'/uploads'));
+
 app.use(sassMiddleware({
     src: './assets/scss',
     dest: './assets/css',
