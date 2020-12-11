@@ -16,7 +16,9 @@ router.post('/update/:id',control.update);
 //use middleware for using passport
 router.post('/create_session',passport.authenticate(
     'local',   //passport strategy name
-    {failureRedirect: '/users/sign-in'}
+    {failureRedirect: '/users/sign-in',
+    failureFlash: 'Invalid username or password.',
+    successFlash: 'Welcome!'}
 ),control.create_session);
 
 router.get('/sign-out',control.destroy_session);

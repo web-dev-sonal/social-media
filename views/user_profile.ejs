@@ -1,11 +1,13 @@
-<h1>user</h1>
 
-<img src="<%= user.avatar %>" alt="<%= user.name %>" width="100">
+
+
 
 
 <!-- user.id will work but user._id will not work here -->
 <!-- we put condition here for update -->
 <%if(locals.user.id==profile_user._id){%>
+    <h1><%=user.name%></h1>
+    <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100"> <br> <br>
     <form action="/users/update/<%=user._id%>" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="enter your name" value="<%=user.name%>" required>
         <input type="email" name="email" placeholder="enter your email" value="<%=user.email%>" required>
@@ -13,8 +15,10 @@
         <input type="submit" value="update">
     </form>
 <%}else{%>
+    <h1><%=profile_user.name%></h1>
+    <img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100"> <br> <br>
     <p><%= profile_user.email %></p>
-    <p><%= profile_user.name %></p>
+    
 <%}%>
 
 

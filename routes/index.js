@@ -15,5 +15,7 @@ router.use('/users',require('./users'));    //use method since it redirect to an
 router.use('/post',require('./posts'));
 router.use('/comment',require('./comment'));
 
+router.use('/api',require('./api'));
+
 console.log('route work successfully');
 module.exports = router;

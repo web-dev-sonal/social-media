@@ -25,7 +25,8 @@
 <section id="friend-list">
     <h1>friends</h1>
     <%for(u of all_user){%>
-        <a href="/users/profile/<%=u._id%>"><%=u.name%></a>
+        <img src="<%= u.avatar %>" alt="<%= u.name %>" width="100"> <br> 
+        <a href="/users/profile/<%=u._id%>"><%=u.name%></a><br>
         <br>
     <%}%>
 </section>
